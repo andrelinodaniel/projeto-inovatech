@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Análise Genérica</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS */
+        .custom-table {
+            border-collapse: separate;
+            border-spacing: 0 0.5rem;
+        }
+
+        .custom-table thead tr {
+            background-color: transparent;
+        }
+
+        .custom-table th,
+        .custom-table td {
+            border: none;
+            padding: 0.75rem 1rem;
+        }
+
+        .custom-table th {
+            font-weight: bold;
+        }
+
+        .custom-table tbody tr {
+            background-color: #f8f9fa;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Relatório de Análise Genérica</h1>
+        <table class="custom-table mt-4">
+            <thead>
+                <tr>
+                    <th>Coluna</th>
+                    <th>Tipo de Dados</th>
+                    <th>Valores Únicos</th>
+                    <th>Valor Mais Frequente</th>
+                    <th>Média</th>
+                    <th>Mediana</th>
+                    <th>Desvio Padrão</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for coluna, stats in estatisticas.items() %}
+                <tr>
+                    <td>{{ coluna }}</td>
+                    <td>{{ stats['Tipo de Dados'] }}</td>
+                    <td>{{ stats['Valores Únicos'] }}</td>
+                    <td>{{ stats['Valor Mais Frequente'] }}</td>
+                    <td>{{ stats['Média'] if 'Média' in stats else 'N/A' }}</td>
+                    <td>{{ stats['Mediana'] if 'Mediana' in stats else 'N/A' }}</td>
+                    <td>{{ stats['Desvio Padrão'] if 'Desvio Padrão' in stats else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <canvas id="chart"></canvas> <!-- Elemento onde o gráfico será renderizado -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var estatisticas = {
+            'Coluna1': {
+              'Tipo de Dados': 'Tipo1',
+              'Valores Únicos': 10,
+              'Valor Mais Frequente': 'Valor1',
+              'Média': 5.7,
+              'Mediana': 5.5,
+              'Desvio Padrão': 1.2
+            },
+            'Coluna2': {
+              'Tipo de Dados': 'Tipo2',
+              'Valores Únicos': 5,
+              'Valor Mais Frequente': 'Valor2',
+              'Média': 3.2,
+              'Mediana': 3.0,
+              'Desvio Padrão': 0.8
+            }
+          };
+
+          var labels = Object.keys(estatisticas);
+          var values = Object.values(estatisticas);
+
+          var ctx = document.getElementById('chart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Valores Únicos',
+                data: values.map(function(item) { return item['Valores Únicos']; }),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

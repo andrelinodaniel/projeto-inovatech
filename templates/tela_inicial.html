@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/tela_inicial.css">
+</head>
+
+<body>
+    <!--criação do header-->
+    <header>
+        <!--inicio da nav bar-->
+        <h2>
+            <img src="/static/Logo-Branca-Smart-Solution.png">
+
+        </h2>
+        
+        <nav class="navigation">
+            
+            <button class="btnLogin-popup">login</button>
+        </nav>
+        <!--fim da nav bar-->
+
+
+    </header>
+    <!--fim do header-->
+
+    <!--inicio da caixa de login-->
+    <div class="wrapper">
+        <span class="icon-close"><ion-icon name="close-outline"></ion-icon></span>
+        <div class="form-box login">
+            <h2>login</h2>
+
+            <form action="/login" method="POST">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="usuario"required>
+                    <label>user</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="senha" required>
+                    <label>password</label>
+
+                </div>
+                <div class="remeber-forgot">
+                    <label><input type="checkbox">manter conectado</label>
+                    <a href="#">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn">login</button>
+                <div class="login-register">
+                    <p>Você não tem uma conta?<a href="#" class="register-link">cadastre-se</a></p>
+                </div>
+
+            </form>
+
+
+
+        </div>
+        <div class="form-box register">
+            <h2>cadastro</h2>
+            <form action="/cadastro" method="POST">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="usuario" required>
+                    <label>nome de usuário</label>
+                </div>
+               
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="senha" required>
+                    <label>password</label>
+
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="confirma_senha" required>
+                    <label>repeat password</label>
+
+                </div>
+                <div class="remeber-forgot">
+
+                </div>
+                <button type="submit" class="btn">Cadastrar</button>
+                <div class="login-register">
+                    <p>Você já tem uma conta?<a href="#" class="login-link">Entre</a></p>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+   
+
+    <!--fim da caixa de login-->
+    <script>
+  function showAlert(status) {
+    if (status === 'success') {
+      alert('USUÁRIO REGISTRADO COM SUCESSO!');
+    } else if (status === 'exists') {
+      alert('USUÁRIO JÁ EXISTE');
+    }
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const alertStatus = urlParams.get('alert');
+  if (alertStatus) {
+    showAlert(alertStatus);
+  }
+
+</script>
+   
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        const wrapper = document.querySelector('.wrapper');
+        const loginLink = document.querySelector('.login-link');
+        const registerLink = document.querySelector('.register-link');
+        const btnPopup = document.querySelector('.btnLogin-popup');
+        const inconClose = document.querySelector('.icon-close');
+
+
+
+
+        registerLink.addEventListener('click', () => {
+            wrapper.classList.add('active');
+        });
+
+        loginLink.addEventListener('click', () => {
+            wrapper.classList.remove('active');
+        });
+
+        btnPopup.addEventListener('click', () => {
+            wrapper.classList.add('active-popup');
+        });
+
+        inconClose.addEventListener('click', () => {
+            wrapper.classList.remove('active-popup');
+        });
+
+    </script>
+
+</body>
+
+</html>

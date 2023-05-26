@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Arquivos Xlsx</title>
+</head>
+<body>
+    <h1>Upload de Arquivos Xlsx</h1>
+    <form action="./grafico2.html" method="post" enctype="multipart/form-data">
+        <input type="file" name="arquivo">
+        
+    </form>
+    <p id="resultado1">Faturamento: {{ ft }}</p>
+    <p id="resulrado2">Quantidade: {{qtd}}</p>
+
+   
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          
+    <script>
+          if('{{erro}}'){
+            alert('{{erro}}')
+          }
+            
+    
+      $.getJSON('/calcular', function(data) {
+  console.log(data);
+  $('#resultado').text(data);
+});
+
+    </script>
+</body>
+</html>
